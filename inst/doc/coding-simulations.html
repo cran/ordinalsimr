@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Coding Simulations</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Coding Simulations</h1>
+
+
+
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(ordinalsimr)</span></code></pre></div>
+<div id="coding-your-own-simulations" class="section level1">
+<h1>Coding Your Own Simulations</h1>
+<p>This guide will provide a rough overview of how to code your own
+simulations using the components of this package should you find the
+Shiny application too limiting for your own purposes. Key information on
+functions:</p>
+<ul>
+<li><code>run_simulations()</code> will take simulation input parameters
+and return a named list of tibbles. Each tibble represents the results
+of a simulation at a given sample size, with names
+e.g. “sample_size_32”.</li>
+<li><code>bind_rows()</code> is used to combine the tibbles into a
+single tibble.</li>
+<li><code>calculate_power_t2error()</code> and
+<code>calculate_t1_error()</code> can receive the p-value data frames
+for performing T1 Error, Power, and T2 Error calculations with
+confidence intervals. See function documentation for additional
+arguments.</li>
+</ul>
+<div id="power-and-type-ii-error" class="section level2">
+<h2>Power and Type II Error</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>sim_results <span class="ot">&lt;-</span> <span class="fu">run_simulations</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>  <span class="at">sample_size =</span> <span class="dv">80</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  <span class="at">sample_prob =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>),</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>  <span class="at">prob0 =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="fl">0.4</span>),</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  <span class="at">prob1 =</span> <span class="fu">c</span>(<span class="fl">0.6</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>),</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  <span class="at">niter =</span> <span class="dv">20</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>)</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>formatted_results <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(sim_results)</span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="fu">names</span>(formatted_results)</span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;Wilcoxon&quot;                    &quot;Fisher&quot;                     </span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="co">#&gt;  [3] &quot;Chi Squared (No Correction)&quot; &quot;Chi Squared (Correction)&quot;   </span></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="co">#&gt;  [5] &quot;Prop. Odds&quot;                  &quot;Coin Indep. Test&quot;           </span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="co">#&gt;  [7] &quot;run&quot;                         &quot;y&quot;                          </span></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a><span class="co">#&gt;  [9] &quot;x&quot;                           &quot;n_null&quot;                     </span></span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a><span class="co">#&gt; [11] &quot;n_intervene&quot;                 &quot;sample_size&quot;                </span></span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a><span class="co">#&gt; [13] &quot;K&quot;</span></span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>formatted_results <span class="sc">%&gt;%</span></span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(</span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>    Wilcoxon, Fisher, <span class="st">`</span><span class="at">Chi Squared (No Correction)</span><span class="st">`</span>,</span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>    <span class="st">`</span><span class="at">Chi Squared (Correction)</span><span class="st">`</span>, <span class="st">`</span><span class="at">Prop. Odds</span><span class="st">`</span>,</span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a>    <span class="st">`</span><span class="at">Coin Indep. Test</span><span class="st">`</span>,</span>
+<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a>    sample_size</span>
+<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a>  <span class="fu">calculate_power_t2error</span>(<span class="at">alpha =</span> <span class="fl">0.05</span>, <span class="at">power_confidence_int =</span> <span class="dv">95</span>)</span>
+<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 × 10</span></span>
+<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a><span class="co">#&gt; # Groups:   Sample Size [1]</span></span>
+<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a><span class="co">#&gt;   `Sample Size` test    lower_power_bound upper_power_bound power `Power 95% CI`</span></span>
+<span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a><span class="co">#&gt;           &lt;dbl&gt; &lt;chr&gt;               &lt;dbl&gt;             &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;         </span></span>
+<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a><span class="co">#&gt; 1            80 Wilcox…             0.832                 1     1 [0.832, 1]    </span></span>
+<span id="cb2-32"><a href="#cb2-32" tabindex="-1"></a><span class="co">#&gt; 2            80 Fisher              0.832                 1     1 [0.832, 1]    </span></span>
+<span id="cb2-33"><a href="#cb2-33" tabindex="-1"></a><span class="co">#&gt; 3            80 Chi Sq…             0.832                 1     1 [0.832, 1]    </span></span>
+<span id="cb2-34"><a href="#cb2-34" tabindex="-1"></a><span class="co">#&gt; 4            80 Chi Sq…             0.832                 1     1 [0.832, 1]    </span></span>
+<span id="cb2-35"><a href="#cb2-35" tabindex="-1"></a><span class="co">#&gt; 5            80 Prop. …             0.832                 1     1 [0.832, 1]    </span></span>
+<span id="cb2-36"><a href="#cb2-36" tabindex="-1"></a><span class="co">#&gt; 6            80 Coin I…             0.832                 1     1 [0.832, 1]    </span></span>
+<span id="cb2-37"><a href="#cb2-37" tabindex="-1"></a><span class="co">#&gt; # ℹ 4 more variables: lower_t2error_bound &lt;dbl&gt;, upper_t2error_bound &lt;dbl&gt;,</span></span>
+<span id="cb2-38"><a href="#cb2-38" tabindex="-1"></a><span class="co">#&gt; #   t2_error &lt;dbl&gt;, `TII Error 95% CI` &lt;chr&gt;</span></span></code></pre></div>
+</div>
+<div id="type-i-error" class="section level2">
+<h2>Type I Error</h2>
+<p>To find the Type I error of a distribution, the code from before is
+largely unchanged except for the fact that the probability vectors set
+in <code>run_simulations</code> must now be equivalent and the
+<code>calculate_t1_error()</code> function is now applied.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>sim_results <span class="ot">&lt;-</span> <span class="fu">run_simulations</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  <span class="at">sample_size =</span> <span class="dv">30</span><span class="sc">:</span><span class="dv">35</span>,</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  <span class="at">sample_prob =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>),</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>  <span class="at">prob0 =</span> <span class="fu">c</span>(.<span class="dv">4</span>, .<span class="dv">3</span>, .<span class="dv">3</span>),</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>  <span class="at">prob1 =</span> <span class="fu">c</span>(.<span class="dv">8</span>, .<span class="dv">1</span>, .<span class="dv">1</span>), <span class="co"># note the matching probabilities between groups</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>  <span class="at">niter =</span> <span class="dv">50</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>)</span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>formatted_results <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(sim_results)</span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="fu">names</span>(formatted_results)</span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;Wilcoxon&quot;                    &quot;Fisher&quot;                     </span></span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a><span class="co">#&gt;  [3] &quot;Chi Squared (No Correction)&quot; &quot;Chi Squared (Correction)&quot;   </span></span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a><span class="co">#&gt;  [5] &quot;Prop. Odds&quot;                  &quot;Coin Indep. Test&quot;           </span></span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a><span class="co">#&gt;  [7] &quot;run&quot;                         &quot;y&quot;                          </span></span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a><span class="co">#&gt;  [9] &quot;x&quot;                           &quot;n_null&quot;                     </span></span>
+<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a><span class="co">#&gt; [11] &quot;n_intervene&quot;                 &quot;sample_size&quot;                </span></span>
+<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a><span class="co">#&gt; [13] &quot;K&quot;</span></span>
+<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" tabindex="-1"></a>formatted_results <span class="sc">%&gt;%</span></span>
+<span id="cb3-21"><a href="#cb3-21" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(</span>
+<span id="cb3-22"><a href="#cb3-22" tabindex="-1"></a>    Wilcoxon, Fisher, <span class="st">`</span><span class="at">Chi Squared (No Correction)</span><span class="st">`</span>,</span>
+<span id="cb3-23"><a href="#cb3-23" tabindex="-1"></a>    <span class="st">`</span><span class="at">Chi Squared (Correction)</span><span class="st">`</span>, <span class="st">`</span><span class="at">Prop. Odds</span><span class="st">`</span>,</span>
+<span id="cb3-24"><a href="#cb3-24" tabindex="-1"></a>    <span class="st">`</span><span class="at">Coin Indep. Test</span><span class="st">`</span>,</span>
+<span id="cb3-25"><a href="#cb3-25" tabindex="-1"></a>    sample_size</span>
+<span id="cb3-26"><a href="#cb3-26" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb3-27"><a href="#cb3-27" tabindex="-1"></a>  <span class="fu">calculate_t1_error</span>(<span class="at">alpha =</span> <span class="fl">0.05</span>, <span class="at">t1_error_confidence_int =</span> <span class="dv">95</span>)</span>
+<span id="cb3-28"><a href="#cb3-28" tabindex="-1"></a><span class="co">#&gt; # A tibble: 36 × 6</span></span>
+<span id="cb3-29"><a href="#cb3-29" tabindex="-1"></a><span class="co">#&gt; # Groups:   Sample Size [6]</span></span>
+<span id="cb3-30"><a href="#cb3-30" tabindex="-1"></a><span class="co">#&gt;    `Sample Size` test            lower_t1_bound upper_t1_bound t1_error `95% CI`</span></span>
+<span id="cb3-31"><a href="#cb3-31" tabindex="-1"></a><span class="co">#&gt;            &lt;int&gt; &lt;chr&gt;                    &lt;dbl&gt;          &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;   </span></span>
+<span id="cb3-32"><a href="#cb3-32" tabindex="-1"></a><span class="co">#&gt;  1            30 Wilcoxon                 0.452          0.736     0.6  [0.452,…</span></span>
+<span id="cb3-33"><a href="#cb3-33" tabindex="-1"></a><span class="co">#&gt;  2            30 Fisher                   0.337          0.626     0.48 [0.337,…</span></span>
+<span id="cb3-34"><a href="#cb3-34" tabindex="-1"></a><span class="co">#&gt;  3            30 Chi Squared (N…          0.374          0.663     0.52 [0.374,…</span></span>
+<span id="cb3-35"><a href="#cb3-35" tabindex="-1"></a><span class="co">#&gt;  4            30 Chi Squared (C…          0.374          0.663     0.52 [0.374,…</span></span>
+<span id="cb3-36"><a href="#cb3-36" tabindex="-1"></a><span class="co">#&gt;  5            30 Prop. Odds               0.472          0.753     0.62 [0.472,…</span></span>
+<span id="cb3-37"><a href="#cb3-37" tabindex="-1"></a><span class="co">#&gt;  6            30 Coin Indep. Te…          0.472          0.753     0.62 [0.472,…</span></span>
+<span id="cb3-38"><a href="#cb3-38" tabindex="-1"></a><span class="co">#&gt;  7            31 Wilcoxon                 0.512          0.788     0.66 [0.512,…</span></span>
+<span id="cb3-39"><a href="#cb3-39" tabindex="-1"></a><span class="co">#&gt;  8            31 Fisher                   0.337          0.626     0.48 [0.337,…</span></span>
+<span id="cb3-40"><a href="#cb3-40" tabindex="-1"></a><span class="co">#&gt;  9            31 Chi Squared (N…          0.374          0.663     0.52 [0.374,…</span></span>
+<span id="cb3-41"><a href="#cb3-41" tabindex="-1"></a><span class="co">#&gt; 10            31 Chi Squared (C…          0.374          0.663     0.52 [0.374,…</span></span>
+<span id="cb3-42"><a href="#cb3-42" tabindex="-1"></a><span class="co">#&gt; # ℹ 26 more rows</span></span></code></pre></div>
+</div>
+<div id="mapping-over-many-sample-sizes" class="section level2">
+<h2>Mapping Over Many Sample Sizes</h2>
+<p>The current version of the Shiny application can only accept a range
+of sample sizes. However, you may find it useful to iterate over a
+discrete set of sample sizes and calculate the Power and Type II error
+for each rather than a range. This can save time and computation power
+when you are only interested in a few specific sample sizes.</p>
+<p>Depending on how big the number of iterations per sample sizes
+(<code>niter</code>) and the actual number of sample sizes being
+checked, it may only be practical to do this in a parallelized manner
+with e.g. {furrr} or {parallel}. In any case, an example of such code is
+included below:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># Create a vector of sample sizes</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>sample_sizes <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">50</span>, <span class="dv">100</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="co"># Map over the sample sizes</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="fu">lapply</span>(sample_sizes, <span class="cf">function</span>(x) {</span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>  <span class="fu">run_simulations</span>(</span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>    <span class="at">sample_size =</span> x,</span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>    <span class="at">sample_prob =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>),</span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>    <span class="at">prob0 =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="fl">0.4</span>),</span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a>    <span class="at">prob1 =</span> <span class="fu">c</span>(<span class="fl">0.6</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>),</span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a>    <span class="at">niter =</span> <span class="dv">100</span></span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">bind_rows</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>(</span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a>      Wilcoxon, Fisher, <span class="st">`</span><span class="at">Chi Squared (No Correction)</span><span class="st">`</span>,</span>
+<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a>      <span class="st">`</span><span class="at">Chi Squared (Correction)</span><span class="st">`</span>, <span class="st">`</span><span class="at">Prop. Odds</span><span class="st">`</span>,</span>
+<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a>      <span class="st">`</span><span class="at">Coin Indep. Test</span><span class="st">`</span>, sample_size</span>
+<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb4-19"><a href="#cb4-19" tabindex="-1"></a>    <span class="fu">calculate_power_t2error</span>()</span>
+<span id="cb4-20"><a href="#cb4-20" tabindex="-1"></a>})</span>
+<span id="cb4-21"><a href="#cb4-21" tabindex="-1"></a><span class="co">#&gt; [[1]]</span></span>
+<span id="cb4-22"><a href="#cb4-22" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 × 10</span></span>
+<span id="cb4-23"><a href="#cb4-23" tabindex="-1"></a><span class="co">#&gt; # Groups:   Sample Size [1]</span></span>
+<span id="cb4-24"><a href="#cb4-24" tabindex="-1"></a><span class="co">#&gt;   `Sample Size` test    lower_power_bound upper_power_bound power `Power 95% CI`</span></span>
+<span id="cb4-25"><a href="#cb4-25" tabindex="-1"></a><span class="co">#&gt;           &lt;dbl&gt; &lt;chr&gt;               &lt;dbl&gt;             &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;         </span></span>
+<span id="cb4-26"><a href="#cb4-26" tabindex="-1"></a><span class="co">#&gt; 1            30 Wilcox…             0.765             0.914  0.85 [0.765, 0.914]</span></span>
+<span id="cb4-27"><a href="#cb4-27" tabindex="-1"></a><span class="co">#&gt; 2            30 Fisher              0.643             0.823  0.74 [0.643, 0.823]</span></span>
+<span id="cb4-28"><a href="#cb4-28" tabindex="-1"></a><span class="co">#&gt; 3            30 Chi Sq…             0.600             0.788  0.7  [0.6, 0.788]  </span></span>
+<span id="cb4-29"><a href="#cb4-29" tabindex="-1"></a><span class="co">#&gt; 4            30 Chi Sq…             0.600             0.788  0.7  [0.6, 0.788]  </span></span>
+<span id="cb4-30"><a href="#cb4-30" tabindex="-1"></a><span class="co">#&gt; 5            30 Prop. …             0.788             0.929  0.87 [0.788, 0.929]</span></span>
+<span id="cb4-31"><a href="#cb4-31" tabindex="-1"></a><span class="co">#&gt; 6            30 Coin I…             0.765             0.914  0.85 [0.765, 0.914]</span></span>
+<span id="cb4-32"><a href="#cb4-32" tabindex="-1"></a><span class="co">#&gt; # ℹ 4 more variables: lower_t2error_bound &lt;dbl&gt;, upper_t2error_bound &lt;dbl&gt;,</span></span>
+<span id="cb4-33"><a href="#cb4-33" tabindex="-1"></a><span class="co">#&gt; #   t2_error &lt;dbl&gt;, `TII Error 95% CI` &lt;chr&gt;</span></span>
+<span id="cb4-34"><a href="#cb4-34" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb4-35"><a href="#cb4-35" tabindex="-1"></a><span class="co">#&gt; [[2]]</span></span>
+<span id="cb4-36"><a href="#cb4-36" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 × 10</span></span>
+<span id="cb4-37"><a href="#cb4-37" tabindex="-1"></a><span class="co">#&gt; # Groups:   Sample Size [1]</span></span>
+<span id="cb4-38"><a href="#cb4-38" tabindex="-1"></a><span class="co">#&gt;   `Sample Size` test    lower_power_bound upper_power_bound power `Power 95% CI`</span></span>
+<span id="cb4-39"><a href="#cb4-39" tabindex="-1"></a><span class="co">#&gt;           &lt;dbl&gt; &lt;chr&gt;               &lt;dbl&gt;             &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;         </span></span>
+<span id="cb4-40"><a href="#cb4-40" tabindex="-1"></a><span class="co">#&gt; 1            50 Wilcox…             0.930             0.998  0.98 [0.93, 0.998] </span></span>
+<span id="cb4-41"><a href="#cb4-41" tabindex="-1"></a><span class="co">#&gt; 2            50 Fisher              0.887             0.984  0.95 [0.887, 0.984]</span></span>
+<span id="cb4-42"><a href="#cb4-42" tabindex="-1"></a><span class="co">#&gt; 3            50 Chi Sq…             0.874             0.978  0.94 [0.874, 0.978]</span></span>
+<span id="cb4-43"><a href="#cb4-43" tabindex="-1"></a><span class="co">#&gt; 4            50 Chi Sq…             0.874             0.978  0.94 [0.874, 0.978]</span></span>
+<span id="cb4-44"><a href="#cb4-44" tabindex="-1"></a><span class="co">#&gt; 5            50 Prop. …             0.930             0.998  0.98 [0.93, 0.998] </span></span>
+<span id="cb4-45"><a href="#cb4-45" tabindex="-1"></a><span class="co">#&gt; 6            50 Coin I…             0.930             0.998  0.98 [0.93, 0.998] </span></span>
+<span id="cb4-46"><a href="#cb4-46" tabindex="-1"></a><span class="co">#&gt; # ℹ 4 more variables: lower_t2error_bound &lt;dbl&gt;, upper_t2error_bound &lt;dbl&gt;,</span></span>
+<span id="cb4-47"><a href="#cb4-47" tabindex="-1"></a><span class="co">#&gt; #   t2_error &lt;dbl&gt;, `TII Error 95% CI` &lt;chr&gt;</span></span>
+<span id="cb4-48"><a href="#cb4-48" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb4-49"><a href="#cb4-49" tabindex="-1"></a><span class="co">#&gt; [[3]]</span></span>
+<span id="cb4-50"><a href="#cb4-50" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 × 10</span></span>
+<span id="cb4-51"><a href="#cb4-51" tabindex="-1"></a><span class="co">#&gt; # Groups:   Sample Size [1]</span></span>
+<span id="cb4-52"><a href="#cb4-52" tabindex="-1"></a><span class="co">#&gt;   `Sample Size` test    lower_power_bound upper_power_bound power `Power 95% CI`</span></span>
+<span id="cb4-53"><a href="#cb4-53" tabindex="-1"></a><span class="co">#&gt;           &lt;dbl&gt; &lt;chr&gt;               &lt;dbl&gt;             &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;         </span></span>
+<span id="cb4-54"><a href="#cb4-54" tabindex="-1"></a><span class="co">#&gt; 1           100 Wilcox…             0.964                 1     1 [0.964, 1]    </span></span>
+<span id="cb4-55"><a href="#cb4-55" tabindex="-1"></a><span class="co">#&gt; 2           100 Fisher              0.964                 1     1 [0.964, 1]    </span></span>
+<span id="cb4-56"><a href="#cb4-56" tabindex="-1"></a><span class="co">#&gt; 3           100 Chi Sq…             0.964                 1     1 [0.964, 1]    </span></span>
+<span id="cb4-57"><a href="#cb4-57" tabindex="-1"></a><span class="co">#&gt; 4           100 Chi Sq…             0.964                 1     1 [0.964, 1]    </span></span>
+<span id="cb4-58"><a href="#cb4-58" tabindex="-1"></a><span class="co">#&gt; 5           100 Prop. …             0.964                 1     1 [0.964, 1]    </span></span>
+<span id="cb4-59"><a href="#cb4-59" tabindex="-1"></a><span class="co">#&gt; 6           100 Coin I…             0.964                 1     1 [0.964, 1]    </span></span>
+<span id="cb4-60"><a href="#cb4-60" tabindex="-1"></a><span class="co">#&gt; # ℹ 4 more variables: lower_t2error_bound &lt;dbl&gt;, upper_t2error_bound &lt;dbl&gt;,</span></span>
+<span id="cb4-61"><a href="#cb4-61" tabindex="-1"></a><span class="co">#&gt; #   t2_error &lt;dbl&gt;, `TII Error 95% CI` &lt;chr&gt;</span></span></code></pre></div>
+<p>And if you’re more of a {purrr} person:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>sample_sizes <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>  purrr<span class="sc">::</span><span class="fu">map</span>(</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>    <span class="sc">~</span><span class="fu">run_simulations</span>(</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>      <span class="at">sample_size =</span> .x,</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>      <span class="at">sample_prob =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>),</span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>      <span class="at">prob0 =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="fl">0.4</span>),</span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>      <span class="at">prob1 =</span> <span class="fu">c</span>(<span class="fl">0.6</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>),</span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>      <span class="at">niter =</span> <span class="dv">100</span></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>      ) <span class="sc">%&gt;%</span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>      <span class="fu">bind_rows</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a>      <span class="fu">select</span>(Wilcoxon, Fisher, <span class="st">`</span><span class="at">Chi Squared</span><span class="sc">\n</span><span class="at">(No Correction)</span><span class="st">`</span>, </span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a>           <span class="st">`</span><span class="at">Chi Squared</span><span class="sc">\n</span><span class="at">(Correction)</span><span class="st">`</span>, <span class="st">`</span><span class="at">Prop. Odds</span><span class="st">`</span>, </span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a>           <span class="st">`</span><span class="at">Coin Indep. Test</span><span class="st">`</span>, sample_size) <span class="sc">%&gt;%</span></span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a>      <span class="fu">calculate_power_t2error</span>()</span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+<div id="adjust-multiple-parameters" class="section level2">
+<h2>Adjust Multiple Parameters</h2>
+<p>It is perhaps more likely that analysts will want to iterate
+simulations over a variety of different parameters at once. The code
+below provides a structure for creating a combination grid based on the
+5 input parameters that can be altered; this example can easily be
+altered to include desired parameters by replacing/removing/expanding
+the listed parameters.</p>
+<div id="set-parameters" class="section level3">
+<h3>Set Parameters</h3>
+<p>Note that the <code>prob0_list</code> and <code>prob1_list</code>
+must always be of the same length <strong>and</strong> the corresponding
+sub-elements of the list must also be of the same length. Put in terms
+of the application, there must be a Group 2 if there is a Group 1, and
+the vector representing the number of possible outcomes must be the same
+length for these 2 groups.</p>
+<p>If performing simulations on one distribution to evaluate Type I
+error, it is only necessary to form one probability list. This object
+can be recycled for the probabilities of both groups.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="co"># Choose sample sizes</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>sample_size <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">100</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="co"># Set sample distributions as a proportion c(group1, group2)</span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>sample_prob <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>), <span class="fu">c</span>(<span class="fl">0.75</span>, <span class="fl">0.25</span>))</span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="co"># Trial 1 has matching probabilities between the 2 groups. Trial 2 has non-matching probabilities</span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>prob0_list <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">trial1_group1 =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="fl">0.4</span>), <span class="at">trial2_group1 =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="fl">0.4</span>))</span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>prob1_list <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">trial1_group2 =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="fl">0.4</span>), <span class="at">trial2_group2 =</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="fl">0.3</span>, <span class="fl">0.2</span>))</span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="co"># Number of iterations</span></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a>niter <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">100</span>)</span></code></pre></div>
+</div>
+<div id="create-simulation-grid" class="section level3">
+<h3>Create Simulation Grid</h3>
+<p>Use <code>tidyr::expand_grid()</code> rather than
+<code>base:expand.grid()</code> because the former creates a tibble by
+default, and this supports the nested tibble structure which I’m relying
+on. (This can, of course, be approached in other ways if desired.)</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># Use tidyr::expand_grid as it creates a tibble, supporting the nested tibble structure</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>info_table <span class="ot">&lt;-</span> tidyr<span class="sc">::</span><span class="fu">expand_grid</span>(</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>  sample_size,</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>  sample_prob,</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>  prob0_list,</span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>  prob1_list,</span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>  niter</span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>)</span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a>info_table</span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a><span class="co">#&gt; # A tibble: 32 × 5</span></span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a><span class="co">#&gt;    sample_size sample_prob prob0_list   prob1_list   niter</span></span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a><span class="co">#&gt;          &lt;dbl&gt; &lt;list&gt;      &lt;named list&gt; &lt;named list&gt; &lt;dbl&gt;</span></span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a><span class="co">#&gt;  1          50 &lt;dbl [2]&gt;   &lt;dbl [4]&gt;    &lt;dbl [4]&gt;       20</span></span>
+<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a><span class="co">#&gt;  2          50 &lt;dbl [2]&gt;   &lt;dbl [4]&gt;    &lt;dbl [4]&gt;      100</span></span>
+<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a><span class="co">#&gt;  3          50 &lt;dbl [2]&gt;   &lt;dbl [4]&gt;    &lt;dbl [4]&gt;       20</span></span>
+<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a><span class="co">#&gt;  4          50 &lt;dbl [2]&gt;   &lt;dbl [4]&gt;    &lt;dbl [4]&gt;      100</span></span>
+<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a><span class="co">#&gt;  5          50 &lt;dbl [2]&gt;   &lt;dbl [4]&gt;    &lt;dbl [4]&gt;       20</span></span>
+<span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a><span class="co">#&gt;  6          50 &lt;dbl [2]&gt;   &lt;dbl [4]&gt;    &lt;dbl [4]&gt;      100</span></span>
+<span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a><span class="co">#&gt;  7          50 &lt;dbl [2]&gt;   &lt;dbl [4]&gt;    &lt;dbl [4]&gt;       20</span></span>
+<span id="cb7-21"><a href="#cb7-21" tabindex="-1"></a><span class="co">#&gt;  8          50 &lt;dbl [2]&gt;   &lt;dbl [4]&gt;    &lt;dbl [4]&gt;      100</span></span>
+<span id="cb7-22"><a href="#cb7-22" tabindex="-1"></a><span class="co">#&gt;  9          50 &lt;dbl [2]&gt;   &lt;dbl [4]&gt;    &lt;dbl [4]&gt;       20</span></span>
+<span id="cb7-23"><a href="#cb7-23" tabindex="-1"></a><span class="co">#&gt; 10          50 &lt;dbl [2]&gt;   &lt;dbl [4]&gt;    &lt;dbl [4]&gt;      100</span></span>
+<span id="cb7-24"><a href="#cb7-24" tabindex="-1"></a><span class="co">#&gt; # ℹ 22 more rows</span></span></code></pre></div>
+</div>
+<div id="run-simulation" class="section level3">
+<h3>Run Simulation</h3>
+<p>The example below is complete in running the simulations and
+calculating the Power and Type II error. However, the same code can be
+applied to either calculate the Type I error or use the p-values for
+other purposes.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="co"># Calculate either Power/T2 error or T1 error depending on your specific needs</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>many_sims <span class="ot">&lt;-</span> <span class="fu">mapply</span>(</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>  ordinalsimr<span class="sc">::</span>run_simulations,</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>  <span class="at">sample_size =</span> info_table<span class="sc">$</span>sample_size,</span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>  <span class="at">sample_prob =</span> info_table<span class="sc">$</span>sample_prob,</span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>  <span class="at">prob0 =</span> info_table<span class="sc">$</span>prob0_list,</span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>  <span class="at">prob1 =</span> info_table<span class="sc">$</span>prob1_list,</span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a>  <span class="at">niter =</span> info_table<span class="sc">$</span>niter</span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a>)</span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a><span class="fu">length</span>(many_sims)</span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a><span class="co">#&gt; [1] 32</span></span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a>many_sims[<span class="dv">1</span>]</span>
+<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a><span class="co">#&gt; $sample_size_50</span></span>
+<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a><span class="co">#&gt; # A tibble: 20 × 13</span></span>
+<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a><span class="co">#&gt;    Wilcoxon Fisher Chi Squared (No Correct…¹ Chi Squared (Correct…² `Prop. Odds`</span></span>
+<span id="cb8-18"><a href="#cb8-18" tabindex="-1"></a><span class="co">#&gt;       &lt;dbl&gt;  &lt;dbl&gt;                     &lt;dbl&gt;                  &lt;dbl&gt;        &lt;dbl&gt;</span></span>
+<span id="cb8-19"><a href="#cb8-19" tabindex="-1"></a><span class="co">#&gt;  1  0.585   0.789                     0.725                  0.725       0.572  </span></span>
+<span id="cb8-20"><a href="#cb8-20" tabindex="-1"></a><span class="co">#&gt;  2  0.967   0.787                     0.768                  0.768       0.958  </span></span>
+<span id="cb8-21"><a href="#cb8-21" tabindex="-1"></a><span class="co">#&gt;  3  0.719   0.439                     0.422                  0.422       0.707  </span></span>
+<span id="cb8-22"><a href="#cb8-22" tabindex="-1"></a><span class="co">#&gt;  4  0.818   0.450                     0.407                  0.407       0.802  </span></span>
+<span id="cb8-23"><a href="#cb8-23" tabindex="-1"></a><span class="co">#&gt;  5  0.205   0.319                     0.297                  0.297       0.193  </span></span>
+<span id="cb8-24"><a href="#cb8-24" tabindex="-1"></a><span class="co">#&gt;  6  0.346   0.446                     0.419                  0.419       0.340  </span></span>
+<span id="cb8-25"><a href="#cb8-25" tabindex="-1"></a><span class="co">#&gt;  7  0.626   0.527                     0.418                  0.418       0.617  </span></span>
+<span id="cb8-26"><a href="#cb8-26" tabindex="-1"></a><span class="co">#&gt;  8  0.852   0.324                     0.302                  0.302       0.841  </span></span>
+<span id="cb8-27"><a href="#cb8-27" tabindex="-1"></a><span class="co">#&gt;  9  0.859   0.944                     0.891                  0.891       0.849  </span></span>
+<span id="cb8-28"><a href="#cb8-28" tabindex="-1"></a><span class="co">#&gt; 10  0.857   0.810                     0.808                  0.808       0.848  </span></span>
+<span id="cb8-29"><a href="#cb8-29" tabindex="-1"></a><span class="co">#&gt; 11  0.637   0.849                     0.798                  0.798       0.629  </span></span>
+<span id="cb8-30"><a href="#cb8-30" tabindex="-1"></a><span class="co">#&gt; 12  0.331   0.508                     0.485                  0.485       0.323  </span></span>
+<span id="cb8-31"><a href="#cb8-31" tabindex="-1"></a><span class="co">#&gt; 13  0.00447 0.0308                    0.0330                 0.0330      0.00317</span></span>
+<span id="cb8-32"><a href="#cb8-32" tabindex="-1"></a><span class="co">#&gt; 14  0.777   0.886                     0.823                  0.823       0.765  </span></span>
+<span id="cb8-33"><a href="#cb8-33" tabindex="-1"></a><span class="co">#&gt; 15  0.301   0.0488                    0.0481                 0.0481      0.287  </span></span>
+<span id="cb8-34"><a href="#cb8-34" tabindex="-1"></a><span class="co">#&gt; 16  0.647   0.506                     0.447                  0.447       0.634  </span></span>
+<span id="cb8-35"><a href="#cb8-35" tabindex="-1"></a><span class="co">#&gt; 17  0.0548  0.154                     0.152                  0.152       0.0486 </span></span>
+<span id="cb8-36"><a href="#cb8-36" tabindex="-1"></a><span class="co">#&gt; 18  0.271   0.321                     0.292                  0.292       0.253  </span></span>
+<span id="cb8-37"><a href="#cb8-37" tabindex="-1"></a><span class="co">#&gt; 19  0.483   0.883                     0.820                  0.820       0.473  </span></span>
+<span id="cb8-38"><a href="#cb8-38" tabindex="-1"></a><span class="co">#&gt; 20  0.332   0.179                     0.189                  0.189       0.315  </span></span>
+<span id="cb8-39"><a href="#cb8-39" tabindex="-1"></a><span class="co">#&gt; # ℹ abbreviated names: ¹​`Chi Squared (No Correction)`,</span></span>
+<span id="cb8-40"><a href="#cb8-40" tabindex="-1"></a><span class="co">#&gt; #   ²​`Chi Squared (Correction)`</span></span>
+<span id="cb8-41"><a href="#cb8-41" tabindex="-1"></a><span class="co">#&gt; # ℹ 8 more variables: `Coin Indep. Test` &lt;dbl&gt;, run &lt;int&gt;, y &lt;list&gt;, x &lt;list&gt;,</span></span>
+<span id="cb8-42"><a href="#cb8-42" tabindex="-1"></a><span class="co">#&gt; #   n_null &lt;int&gt;, n_intervene &lt;dbl&gt;, sample_size &lt;dbl&gt;, K &lt;int&gt;</span></span></code></pre></div>
+<p>And again for the {purrr} folks:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>info_table <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>  purrr<span class="sc">::</span><span class="fu">pmap</span>(</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>    <span class="sc">~</span> <span class="fu">run_simulations</span>(</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>      <span class="at">sample_size =</span> ..<span class="dv">1</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>      <span class="at">sample_prob =</span> ..<span class="dv">2</span>,</span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>      <span class="at">prob0 =</span> ..<span class="dv">3</span>,</span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a>      <span class="at">prob1 =</span> ..<span class="dv">4</span>,</span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a>      <span class="at">niter =</span> ..<span class="dv">5</span></span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a>      <span class="fu">bind_rows</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a>      magrittr<span class="sc">::</span><span class="fu">extract2</span>(<span class="st">&quot;p_values&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a>      <span class="fu">calculate_power_t2error</span>(),</span>
+<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a>    <span class="at">.progress =</span> <span class="cn">TRUE</span></span>
+<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a>  )</span></code></pre></div>
+<p>Note that even with relatively small sample sizes and a number of
+iterations 1-3 magnitudes less than normally specified for simulation
+studies, processing 32 different simulations took ~20-30 seconds.</p>
+</div>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

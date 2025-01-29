@@ -1,0 +1,60 @@
+---
+title: "Using {ordinalsimr}"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Using {ordinalsimr}}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(ordinalsimr)
+```
+
+
+# Shiny App
+
+The {ordinalsimr} package wraps a Shiny application and supporting functions for running simulation studies on several pre-selected statistical tests applicable to ordinal data. The Shiny app is particularly suited for calculating Power and Type II error for a proposed 2-group comparison of an ordinal endpoint. Available parameters to manipulate before running the tests include:
+
+* Number of simulations to run (integer)
+* The sample size (integer)
+* The distribution ratio between group 1 and group 2 (ratio of form X:X)
+* Group 1 and Group 2 distribution probabilities for levels of the ordinal outcome
+
+In addition to these parameters for running the simulation, the following can be adjusted in the Distributions page
+
+* Setting the alpha significance level/p-value threshold
+* Setting the confidence intervals for the Power/T2 Error calculations
+* Setting the confidence intervals (separately) for the Type I Error in Group 1 and Group 2
+
+Bug reports and feature requests can be submitted as issues at [https://github.com/NeuroShepherd/ordinalsimr/issues](https://github.com/NeuroShepherd/ordinalsimr/issues)
+
+
+## Using Downloaded Data
+
+Data downloaded after running a simulation is stored as a `.rds` file, and can be loaded into your R session using `readRDS()`. The data is structured as a named list with 3 elements at the top level, and several sub-elements. A summary of the available information is available in the code below.
+
+```{r}
+output <- readRDS("data-2025-01-19-d8621b-1.rds")
+output$comparison_data$distribution_statistics
+str(output, max.level = 2)
+```
+
+* Top level items
+  * `comparison_data` are results from comparing Group 1 against Group 2 in the statistical tests (for TII error and power)
+  * `group1_data` are results from comparing Group 1 data against itself (for TI error of this group)
+  * `group2_data` are results from comparing Group 2 data against itself (for TI error of this group)
+* Second level items
+  * `run_info` are tables of detailed metainformation about the parameters used for each run
+  * `distribution_statistics` are tables of computed TII error, power, and associated confidence intervals
+  * `group1_t1error` and `group2_t1error` are tables of TI error and associated confidence intervals
+
+
+
