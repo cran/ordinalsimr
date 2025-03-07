@@ -439,13 +439,13 @@ in <code>run_simulations</code> must now be equivalent and the
 <span id="cb3-30"><a href="#cb3-30" tabindex="-1"></a><span class="co">#&gt;    `Sample Size` test            lower_t1_bound upper_t1_bound t1_error `95% CI`</span></span>
 <span id="cb3-31"><a href="#cb3-31" tabindex="-1"></a><span class="co">#&gt;            &lt;int&gt; &lt;chr&gt;                    &lt;dbl&gt;          &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;   </span></span>
 <span id="cb3-32"><a href="#cb3-32" tabindex="-1"></a><span class="co">#&gt;  1            30 Wilcoxon                 0.452          0.736     0.6  [0.452,…</span></span>
-<span id="cb3-33"><a href="#cb3-33" tabindex="-1"></a><span class="co">#&gt;  2            30 Fisher                   0.337          0.626     0.48 [0.337,…</span></span>
+<span id="cb3-33"><a href="#cb3-33" tabindex="-1"></a><span class="co">#&gt;  2            30 Fisher                   0.374          0.663     0.52 [0.374,…</span></span>
 <span id="cb3-34"><a href="#cb3-34" tabindex="-1"></a><span class="co">#&gt;  3            30 Chi Squared (N…          0.374          0.663     0.52 [0.374,…</span></span>
 <span id="cb3-35"><a href="#cb3-35" tabindex="-1"></a><span class="co">#&gt;  4            30 Chi Squared (C…          0.374          0.663     0.52 [0.374,…</span></span>
 <span id="cb3-36"><a href="#cb3-36" tabindex="-1"></a><span class="co">#&gt;  5            30 Prop. Odds               0.472          0.753     0.62 [0.472,…</span></span>
 <span id="cb3-37"><a href="#cb3-37" tabindex="-1"></a><span class="co">#&gt;  6            30 Coin Indep. Te…          0.472          0.753     0.62 [0.472,…</span></span>
 <span id="cb3-38"><a href="#cb3-38" tabindex="-1"></a><span class="co">#&gt;  7            31 Wilcoxon                 0.512          0.788     0.66 [0.512,…</span></span>
-<span id="cb3-39"><a href="#cb3-39" tabindex="-1"></a><span class="co">#&gt;  8            31 Fisher                   0.337          0.626     0.48 [0.337,…</span></span>
+<span id="cb3-39"><a href="#cb3-39" tabindex="-1"></a><span class="co">#&gt;  8            31 Fisher                   0.318          0.607     0.46 [0.318,…</span></span>
 <span id="cb3-40"><a href="#cb3-40" tabindex="-1"></a><span class="co">#&gt;  9            31 Chi Squared (N…          0.374          0.663     0.52 [0.374,…</span></span>
 <span id="cb3-41"><a href="#cb3-41" tabindex="-1"></a><span class="co">#&gt; 10            31 Chi Squared (C…          0.374          0.663     0.52 [0.374,…</span></span>
 <span id="cb3-42"><a href="#cb3-42" tabindex="-1"></a><span class="co">#&gt; # ℹ 26 more rows</span></span></code></pre></div>
@@ -488,7 +488,7 @@ included below:</p>
 <span id="cb4-24"><a href="#cb4-24" tabindex="-1"></a><span class="co">#&gt;   `Sample Size` test    lower_power_bound upper_power_bound power `Power 95% CI`</span></span>
 <span id="cb4-25"><a href="#cb4-25" tabindex="-1"></a><span class="co">#&gt;           &lt;dbl&gt; &lt;chr&gt;               &lt;dbl&gt;             &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;         </span></span>
 <span id="cb4-26"><a href="#cb4-26" tabindex="-1"></a><span class="co">#&gt; 1            30 Wilcox…             0.765             0.914  0.85 [0.765, 0.914]</span></span>
-<span id="cb4-27"><a href="#cb4-27" tabindex="-1"></a><span class="co">#&gt; 2            30 Fisher              0.643             0.823  0.74 [0.643, 0.823]</span></span>
+<span id="cb4-27"><a href="#cb4-27" tabindex="-1"></a><span class="co">#&gt; 2            30 Fisher              0.653             0.831  0.75 [0.653, 0.831]</span></span>
 <span id="cb4-28"><a href="#cb4-28" tabindex="-1"></a><span class="co">#&gt; 3            30 Chi Sq…             0.600             0.788  0.7  [0.6, 0.788]  </span></span>
 <span id="cb4-29"><a href="#cb4-29" tabindex="-1"></a><span class="co">#&gt; 4            30 Chi Sq…             0.600             0.788  0.7  [0.6, 0.788]  </span></span>
 <span id="cb4-30"><a href="#cb4-30" tabindex="-1"></a><span class="co">#&gt; 5            30 Prop. …             0.788             0.929  0.87 [0.788, 0.929]</span></span>
@@ -624,26 +624,26 @@ other purposes.</p>
 <span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a><span class="co">#&gt; # A tibble: 20 × 13</span></span>
 <span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a><span class="co">#&gt;    Wilcoxon Fisher Chi Squared (No Correct…¹ Chi Squared (Correct…² `Prop. Odds`</span></span>
 <span id="cb8-18"><a href="#cb8-18" tabindex="-1"></a><span class="co">#&gt;       &lt;dbl&gt;  &lt;dbl&gt;                     &lt;dbl&gt;                  &lt;dbl&gt;        &lt;dbl&gt;</span></span>
-<span id="cb8-19"><a href="#cb8-19" tabindex="-1"></a><span class="co">#&gt;  1  0.585   0.789                     0.725                  0.725       0.572  </span></span>
-<span id="cb8-20"><a href="#cb8-20" tabindex="-1"></a><span class="co">#&gt;  2  0.967   0.787                     0.768                  0.768       0.958  </span></span>
-<span id="cb8-21"><a href="#cb8-21" tabindex="-1"></a><span class="co">#&gt;  3  0.719   0.439                     0.422                  0.422       0.707  </span></span>
-<span id="cb8-22"><a href="#cb8-22" tabindex="-1"></a><span class="co">#&gt;  4  0.818   0.450                     0.407                  0.407       0.802  </span></span>
-<span id="cb8-23"><a href="#cb8-23" tabindex="-1"></a><span class="co">#&gt;  5  0.205   0.319                     0.297                  0.297       0.193  </span></span>
-<span id="cb8-24"><a href="#cb8-24" tabindex="-1"></a><span class="co">#&gt;  6  0.346   0.446                     0.419                  0.419       0.340  </span></span>
-<span id="cb8-25"><a href="#cb8-25" tabindex="-1"></a><span class="co">#&gt;  7  0.626   0.527                     0.418                  0.418       0.617  </span></span>
-<span id="cb8-26"><a href="#cb8-26" tabindex="-1"></a><span class="co">#&gt;  8  0.852   0.324                     0.302                  0.302       0.841  </span></span>
+<span id="cb8-19"><a href="#cb8-19" tabindex="-1"></a><span class="co">#&gt;  1  0.585   0.792                     0.725                  0.725       0.572  </span></span>
+<span id="cb8-20"><a href="#cb8-20" tabindex="-1"></a><span class="co">#&gt;  2  0.967   0.793                     0.768                  0.768       0.958  </span></span>
+<span id="cb8-21"><a href="#cb8-21" tabindex="-1"></a><span class="co">#&gt;  3  0.719   0.442                     0.422                  0.422       0.707  </span></span>
+<span id="cb8-22"><a href="#cb8-22" tabindex="-1"></a><span class="co">#&gt;  4  0.818   0.442                     0.407                  0.407       0.802  </span></span>
+<span id="cb8-23"><a href="#cb8-23" tabindex="-1"></a><span class="co">#&gt;  5  0.205   0.312                     0.297                  0.297       0.193  </span></span>
+<span id="cb8-24"><a href="#cb8-24" tabindex="-1"></a><span class="co">#&gt;  6  0.346   0.450                     0.419                  0.419       0.340  </span></span>
+<span id="cb8-25"><a href="#cb8-25" tabindex="-1"></a><span class="co">#&gt;  7  0.626   0.519                     0.418                  0.418       0.617  </span></span>
+<span id="cb8-26"><a href="#cb8-26" tabindex="-1"></a><span class="co">#&gt;  8  0.852   0.306                     0.302                  0.302       0.841  </span></span>
 <span id="cb8-27"><a href="#cb8-27" tabindex="-1"></a><span class="co">#&gt;  9  0.859   0.944                     0.891                  0.891       0.849  </span></span>
-<span id="cb8-28"><a href="#cb8-28" tabindex="-1"></a><span class="co">#&gt; 10  0.857   0.810                     0.808                  0.808       0.848  </span></span>
+<span id="cb8-28"><a href="#cb8-28" tabindex="-1"></a><span class="co">#&gt; 10  0.857   0.824                     0.808                  0.808       0.848  </span></span>
 <span id="cb8-29"><a href="#cb8-29" tabindex="-1"></a><span class="co">#&gt; 11  0.637   0.849                     0.798                  0.798       0.629  </span></span>
-<span id="cb8-30"><a href="#cb8-30" tabindex="-1"></a><span class="co">#&gt; 12  0.331   0.508                     0.485                  0.485       0.323  </span></span>
-<span id="cb8-31"><a href="#cb8-31" tabindex="-1"></a><span class="co">#&gt; 13  0.00447 0.0308                    0.0330                 0.0330      0.00317</span></span>
-<span id="cb8-32"><a href="#cb8-32" tabindex="-1"></a><span class="co">#&gt; 14  0.777   0.886                     0.823                  0.823       0.765  </span></span>
-<span id="cb8-33"><a href="#cb8-33" tabindex="-1"></a><span class="co">#&gt; 15  0.301   0.0488                    0.0481                 0.0481      0.287  </span></span>
-<span id="cb8-34"><a href="#cb8-34" tabindex="-1"></a><span class="co">#&gt; 16  0.647   0.506                     0.447                  0.447       0.634  </span></span>
-<span id="cb8-35"><a href="#cb8-35" tabindex="-1"></a><span class="co">#&gt; 17  0.0548  0.154                     0.152                  0.152       0.0486 </span></span>
+<span id="cb8-30"><a href="#cb8-30" tabindex="-1"></a><span class="co">#&gt; 12  0.331   0.513                     0.485                  0.485       0.323  </span></span>
+<span id="cb8-31"><a href="#cb8-31" tabindex="-1"></a><span class="co">#&gt; 13  0.00447 0.0375                    0.0330                 0.0330      0.00317</span></span>
+<span id="cb8-32"><a href="#cb8-32" tabindex="-1"></a><span class="co">#&gt; 14  0.777   0.894                     0.823                  0.823       0.765  </span></span>
+<span id="cb8-33"><a href="#cb8-33" tabindex="-1"></a><span class="co">#&gt; 15  0.301   0.0470                    0.0481                 0.0481      0.287  </span></span>
+<span id="cb8-34"><a href="#cb8-34" tabindex="-1"></a><span class="co">#&gt; 16  0.647   0.491                     0.447                  0.447       0.634  </span></span>
+<span id="cb8-35"><a href="#cb8-35" tabindex="-1"></a><span class="co">#&gt; 17  0.0548  0.144                     0.152                  0.152       0.0486 </span></span>
 <span id="cb8-36"><a href="#cb8-36" tabindex="-1"></a><span class="co">#&gt; 18  0.271   0.321                     0.292                  0.292       0.253  </span></span>
-<span id="cb8-37"><a href="#cb8-37" tabindex="-1"></a><span class="co">#&gt; 19  0.483   0.883                     0.820                  0.820       0.473  </span></span>
-<span id="cb8-38"><a href="#cb8-38" tabindex="-1"></a><span class="co">#&gt; 20  0.332   0.179                     0.189                  0.189       0.315  </span></span>
+<span id="cb8-37"><a href="#cb8-37" tabindex="-1"></a><span class="co">#&gt; 19  0.483   0.884                     0.820                  0.820       0.473  </span></span>
+<span id="cb8-38"><a href="#cb8-38" tabindex="-1"></a><span class="co">#&gt; 20  0.332   0.185                     0.189                  0.189       0.315  </span></span>
 <span id="cb8-39"><a href="#cb8-39" tabindex="-1"></a><span class="co">#&gt; # ℹ abbreviated names: ¹​`Chi Squared (No Correction)`,</span></span>
 <span id="cb8-40"><a href="#cb8-40" tabindex="-1"></a><span class="co">#&gt; #   ²​`Chi Squared (Correction)`</span></span>
 <span id="cb8-41"><a href="#cb8-41" tabindex="-1"></a><span class="co">#&gt; # ℹ 8 more variables: `Coin Indep. Test` &lt;dbl&gt;, run &lt;int&gt;, y &lt;list&gt;, x &lt;list&gt;,</span></span>
