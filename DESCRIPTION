@@ -1,6 +1,6 @@
 Package: ordinalsimr
 Title: Compare Ordinal Endpoints Using Simulations
-Version: 0.2.0
+Version: 0.2.1
 Authors@R: 
     person(given = "Pat",
            family = "Callahan",
@@ -10,9 +10,9 @@ Authors@R:
 Description: Simultaneously evaluate multiple ordinal outcome measures. Applied data analysts in particular are faced with uncertainty in choosing appropriate statistical tests for ordinal data. The included 'shiny' application allows users to simulate outcomes given different ordinal data distributions.
 License: MIT + file LICENSE
 Imports: assertthat, bslib (>= 0.9.0), callr, coin, config (>= 0.3.1),
-        dplyr, DT, ggplot2, golem (>= 0.4.0), magrittr, rhandsontable,
-        rlang, rms, shiny (>= 1.7.4), shinycssloaders, shinyWidgets,
-        stats, tidyr, utils, withr
+        dplyr, DT, ggplot2, golem (>= 0.4.0), rhandsontable, rlang,
+        rms, shiny (>= 1.7.4), shinycssloaders, shinyWidgets, stats,
+        tidyr, utils, withr
 Encoding: UTF-8
 LazyData: true
 LazyDataCompression: xz
@@ -26,8 +26,9 @@ Config/testthat/edition: 3
 Depends: R (>= 4.4.0)
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2025-03-07 09:56:38 UTC; patcallahan
-Author: Pat Callahan [aut, cre, cph] (<https://orcid.org/0000-0003-1769-7580>)
+Packaged: 2025-06-03 20:36:55 UTC; patcallahan
+Author: Pat Callahan [aut, cre, cph] (ORCID:
+    <https://orcid.org/0000-0003-1769-7580>)
 Maintainer: Pat Callahan <patricktcallahan18@gmail.com>
 Repository: CRAN
-Date/Publication: 2025-03-07 10:10:02 UTC
+Date/Publication: 2025-06-04 07:10:02 UTC
