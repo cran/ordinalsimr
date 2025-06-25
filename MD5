@@ -1,7 +1,7 @@
-9de87fe0f5bb83cc08340dbac23101ea *DESCRIPTION
+83600e27d9e6e50ac2606f122bbb0773 *DESCRIPTION
 d476720eec15938057b92674f9dab267 *LICENSE
 ad03288872625c5f6c4bb4cf10e98a14 *NAMESPACE
-b28c1d5cf0c6539c8e48cc1124c2dad4 *NEWS.md
+62aa1aa46de1dac7b617d5490d06d82b *NEWS.md
 f52a4382c3f1901effb0c9e3367ca2ea *R/app_config.R
 9390fc8880ae0cadcc250e2a836581cc *R/app_server.R
 f4dab567e8a6e3fd7e96757dc4114a1f *R/app_ui.R
@@ -38,7 +38,7 @@ b5f53cfc7b5bd9e28a0e4f3a4eb96588 *R/utils-pipe.R
 0e7f4ad5d358b6b947f93b17c91844ff *R/utils.R
 7cb26bfe27176c23de4847575c82fc4a *R/zzz.R
 e1e5dabb3bddd02db0102504eeb74126 *README.md
-b41aa980cf8b0b3d70bd5e539c9b0dfc *build/vignette.rds
+3084207fa5d17da3150f6caa29f12313 *build/vignette.rds
 17e6e7d8871d11fe0971d69204207867 *data/simulation_data_one_group.rda
 17ab08247b5d5a683766d8123e3aafa9 *data/simulation_data_two_groups.rda
 89f5c22e2ed6dfb1b938c7456ab4b6f9 *inst/CITATION
@@ -46,7 +46,7 @@ b84cb67f2c35e0fa3a07f72d7ea2e0c6 *inst/app/www/custom.css
 81560d1b906a530c87fa0acbb2f5cca4 *inst/app/www/favicon.ico
 43e1efebf2874209cb0b73c6e13aff7d *inst/doc/coding-simulations.R
 bc1cf6e923d1b2bfac13a74ecc4e3ac9 *inst/doc/coding-simulations.Rmd
-3a1275eb5b2479eda9dce170d81f195e *inst/doc/coding-simulations.html
+1b3a542acf6d4bc16c82af1154ac0f9f *inst/doc/coding-simulations.html
 21e64f8284ccd0f79db13260ec48be31 *inst/doc/ordinalsimr-options.R
 fb5dd1abb468deaff98a5c5590640786 *inst/doc/ordinalsimr-options.Rmd
 087780e976335d465a54a9a5339c5335 *inst/doc/ordinalsimr-options.html
@@ -100,7 +100,7 @@ b01bb6d73817cbb4e670ba3b567dd9ed *tests/testthat.R
 dc8c5e77a5e611942cc265ab94162482 *tests/testthat/test-ordinal_tests.R
 8062d4223dcb658a306ab5b8d7bb0513 *tests/testthat/test-run_simulations.R
 a31bd51415bd34a48383500b268637ac *tests/testthat/test-use_ordinalsimr_options.R
-7361baa034d868a463916f0bc2dda57a *tests/testthat/test-utils.R
+6786f947aa656556a85d002fa91ea587 *tests/testthat/test-utils.R
 53e601deeabbda6b1a1747a5a85401dc *tests/testthat/test-zzz.R
 bc1cf6e923d1b2bfac13a74ecc4e3ac9 *vignettes/coding-simulations.Rmd
 faf005eb96b311b771e65316265f7f0b *vignettes/data-2025-01-19-d8621b-1.rds
